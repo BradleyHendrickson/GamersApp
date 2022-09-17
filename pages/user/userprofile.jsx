@@ -7,7 +7,7 @@ export default function UserProfile() {
     <Container className='p-4'>
       <Card>
         <Card.Header>User Profile</Card.Header>
-        <Card.Body>Here is my user details</Card.Body>
+        <Card.Body>Brad - black man</Card.Body>
       </Card>
     </Container>
   );
