@@ -24,3 +24,21 @@
   height: 1em;
   margin-left: 10px;
 }
+
+@font-face {
+  font-family: 'Maragsa';
+  src: local('Maragsa'), './public/Maragsa-Display.woff', format('opentype');
+}
+
+.font-face-maragsa {
+  font-family: "Maragsa";
+ }
+
+ .dontselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+   -khtml-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+ }
