@@ -1,0 +1,45 @@
+version: "3.1"
+
+services:
+  postgres:
+    container_name: cliquesell-database
+    image: "postgres:14"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test
+    volumes:
+      - "./.docker-data/database:/var/lib/postgresql/data:delegated"
+    ports:
+      - "5432:5432"
+
+  cliquesell-local:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL="postgresql://postgres:test@localhost:5432/cliquesell_dev?schema=public"
+      - CLIQUESELL_DB_USER=postgres
+      - CLIQUESELL_DB_PASSWORD=test
+      - CLIQUESELL_DB_HOST=cliquesell-database
+      - CLIQUESELL_DB_CATALOG=cliquesell_dev
+      - ENVIRONMENT=local
+    depends_on:
+      - postgres
+
+  pgadmin:
+    container_name: cliquesell-pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    volumes:
+      - "./.docker-data/pgadmin:/var/lib/pgadmin"
+
+volumes:
+  database-data:
+  pgadmin-data:

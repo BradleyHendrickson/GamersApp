@@ -15,38 +15,33 @@ import { PictureCard } from "../components/PictureCard";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function truncateString(string, limit) {
-  if (string.length > limit) {
-    return string.substring(0, limit) + "...";
-  } else {
-    return string;
-  }
-}
-
-const listings = [
-  {
-    title: "Some Delicious Ramen",
-    picture: "bussin.png",
-    description:
-      "This ramen was made from the finest materials, sourced from the Maruchan Merchants in the misty mountains",
-    price: 69.99,
-  },
-  {
-    title: "Fresh Hot Waffle",
-    picture: "waffle.png",
-    description: "A crispy waffle, with fresh butter and syrup",
-    price: 100,
-  },
-  {
-    title: "Kids Bike",
-    picture: "bike.webp",
-    description:
-      "I bought this bike for my kid but he outgrew it. Time to pass it on!",
-    price: 25,
-  },
-];
+import React, { useState, useEffect } from "react";
 
 export function Store() {
+  function truncateString(string, limit) {
+    if (string.length > limit) {
+      return string.substring(0, limit) + "...";
+    } else {
+      return string;
+    }
+  }
+
+  const [posts, setPosts] = useState([]);
+
+  function updatePosts() {
+    fetch("/api/posts")
+      .then((request) => request.json())
+      .then((data) => {
+        if (data) {
+          setPosts(data);
+        }
+      });
+  }
+
+  useEffect(() => {
+    updatePosts();
+  }, []);
+
   return (
     <>
       <div style={{ height: "2rem" }}></div>
@@ -54,15 +49,17 @@ export function Store() {
         <Col>
           <Container>
             <Row>
-              {listings.map((l) => {
+              {posts.map((l) => {
                 return (
-                  <Col className='col-auto'>
+                  <Col key={l.id} className='col-auto'>
                     <Card style={{ width: "18rem" }} className='mb-2 mr-2'>
+                      {/*
                       <Card.Img
                         variant='top'
                         style={{ height: "18rem" }}
                         src={l.picture}
                       />
+                      */}
                       <Card.Body style={{ minHeight: "12rem" }}>
                         <Card.Title>{l.title}</Card.Title>
                         <Card.Subtitle>
