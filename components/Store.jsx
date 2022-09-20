@@ -8,6 +8,7 @@ import {
   Navbar,
   Nav,
   Button,
+  Alert,
 } from "react-bootstrap";
 import styles from "../styles/Home.module.css";
 import { PictureCard } from "../components/PictureCard";
@@ -51,15 +52,8 @@ export function Store() {
             <Row>
               {posts.map((l) => {
                 return (
-                  <Col key={l.id} className='col-auto'>
-                    <Card style={{ width: "18rem" }} className='mb-2 mr-2'>
-                      {/*
-                      <Card.Img
-                        variant='top'
-                        style={{ height: "18rem" }}
-                        src={l.picture}
-                      />
-                      */}
+                  <Col key={l.id} md={"auto"} xs='12'>
+                    <Card className='mb-2 mr-2'>
                       <Card.Body style={{ minHeight: "12rem" }}>
                         <Card.Title>{l.title}</Card.Title>
                         <Card.Subtitle>

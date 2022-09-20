@@ -1,4 +1,14 @@
-import { Card, Container, Row, Col, Navbar, Nav } from "react-bootstrap";
+import {
+  Card,
+  Container,
+  Row,
+  Col,
+  Navbar,
+  Nav,
+  Button,
+} from "react-bootstrap";
+
+import { signIn } from "next-auth/react";
 
 export function StoreNav(props) {
   return (
@@ -8,6 +18,13 @@ export function StoreNav(props) {
         <Nav className='me-auto'>
           <Nav.Link href='/'>For Sale</Nav.Link>
           <Nav.Link href='/about'>About</Nav.Link>
+          <Button
+            onClick={() => {
+              signIn("google", { callbackUrl: "/" });
+            }}
+          >
+            Sign In With Google
+          </Button>
         </Nav>
       </Container>
     </Navbar>
